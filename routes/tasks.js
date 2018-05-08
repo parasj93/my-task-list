@@ -30,21 +30,27 @@ router.post('/task', (req, res, next) => {
     var task = new tasks(req.body);
     console.log('newatask', task);
     //console.log(task.title + '     ' + task.isDone   );
-    if (!task.title || !task.isDone + '') {
-        res.status(400);
-        res.json({
-            "error": "Bad Data"
-        })
-    } else {
-        task.save((err, data) => {
-            if (err) {
-                res.send(err);
-                //console.log('error response', err); 
-            }
-            res.json(data);
-        })
-    }
-
+    // if (!task.title || !task.isDone + '') {
+    //     res.status(400);
+    //     res.json({
+    //         "error": "Bad Data"
+    //     })
+    // } else {
+    //     task.save((err, data) => {
+    //         if (err) {
+    //             res.send(err);
+    //             //console.log('error response', err); 
+    //         }
+    //         res.json(data);
+    //     })
+    // }
+    task.save((err, data) => {
+        if (err) {
+            res.send(err);
+            //console.log('error response', err); 
+        }
+        res.json(data);
+    })
 });
 
 //delete task
@@ -61,11 +67,15 @@ router.post('/task/:id', (req, res, next) => {
 //update task
 router.put('/task/:id', (req, res, next) => {
     var task = req.body;
-    tasks.findByIdAndUpdate({ _id: req.params.id = req.params.id }, task, (err, data) => {
+    tasks.findByIdAndUpdate({ _id: req.params.id = req.params.id }, task, (err, res) => {
+        console.log('error response', err); 
+        console.log('data response - 1', res); 
         if (err) {
-            res.send(err)
+            res.send(err);
+            console.log('error response', err); 
         };
-        res.json(data);
+        res.json(res);
+        console.log('data response -2 ', res); 
     })
 
 })
