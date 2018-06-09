@@ -15,6 +15,7 @@ router.get('/tasks', (req, res, next) => {
 
 //only 1 task
 router.get('/task/:id', (req, res, next) => {
+    console.log(req.params.id);
     tasks.findOne({ _id: req.params.id = req.params.id }, (err, test) => {
         if (err) {
             res.send(err);
@@ -66,15 +67,19 @@ router.post('/task/:id', (req, res, next) => {
 
 //update task
 router.put('/task/:id', (req, res, next) => {
-    var task = req.body;
-    tasks.findByIdAndUpdate({ _id: req.params.id = req.params.id }, task, (err, res) => {
+
+    //var task = JSON.stri  ngify(req.);
+    console.log('task is '+task);
+    console.log('   id is '+req.params.id);
+    //console.log('_id is '+req.params._id);
+
+    tasks.findByIdAndUpdate({ _id:req.params.id = req.params.id }, task, (err, res) => {
         console.log('error response', err); 
         console.log('data response - 1', res); 
         if (err) {
-            res.send(err);
+            //console.log(err)
             console.log('error response', err); 
         };
-        res.json(res);
         console.log('data response -2 ', res); 
     })
 
